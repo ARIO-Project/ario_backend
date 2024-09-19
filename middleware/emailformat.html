@@ -1,0 +1,97 @@
+<!-- templates/generalEmailTemplate.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet"/> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>{{title}}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ffffff;
+        }
+        .logo {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        .content {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .social-links {
+            text-align: center;
+            margin-top: 10px;
+            filter: grayscale(100%);
+        }
+        .social-links a {
+            margin: 0 10px;
+            color: #333; 
+            font-size: 30px; 
+            text-decoration: none;
+        }
+        .social-links img {
+            width: 27px;
+            height: 27px; 
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="content">
+            {{content}}
+        </div>
+
+        <!-- Logo -->
+        <div class="logo">
+            <img src="C:\Users\hp\Downloads\ARIO-II\img\LOGO alts-03 edit.png" alt="ARIO Logo" width="200">
+        </div>
+
+
+
+
+        <!-- Social Media Links -->
+        <div class="social-links">
+            <p>Chat with us on</p>
+            <a href="https://snapchat.com/ario" target="_blank">
+                <img src="..\img\snapchat-ghost-brands.png"></i> 
+            </a>
+            <a href="https://snapchat.com/ario" target="_blank">
+                <img src="..\img\instagram-brands.png"></i>
+            </a>
+            <a href="https://x.com/ario" target="_blank">
+                <img src="..\img\twitter-brands.png"></i> 
+            </a>
+            <a href="https://whatsapp.com/ario" target="_blank">
+                <img src="..\img\whatsapp-brands.png"></i> 
+            </a>
+            <a href="https://telegram.com/ario" target="_blank">
+                <img src="..\img\telegram-brands.png"></i>
+            </a>
+        </div>
+        
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2024 ARIO. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
