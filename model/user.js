@@ -9,7 +9,7 @@ const User = new mongoose.Schema({
     Email: { type: String, required: true },
     Password: { type: String, required: true },
     PhoneNumber: { type: String, required: false},
-    PreferedSM: { 
+    PreferredSM: { 
         type: String, 
         required: false, 
         enum: [ 'WhatsApp', 'Instagram', 'Snapchat', 'Telegram', 'Twitter'],

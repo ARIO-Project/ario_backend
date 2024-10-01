@@ -72,13 +72,17 @@ async function sendOTPEmail(user, otp) {
 
 async function sendNewsLetterEmail(user) {
     const emailContent = await generateEmailHTML('generalEmailTemplate.html', {
-        title: 'Password Reset 🔒',
-        content: `Hi ${user.Firstname} 👋,<br><br> You requested a password reset,<br>Please click the following link to reset your password: <a href="${resetLink}">Reset Password Link</a>.<br>Btw, this link will exipre in 2 hours 😉<br><br>`
+        title: 'Welcome ✨',
+        content: `<strong>🎉 Thank You ${user.Firstname}, for Joining Ario! 🎉</strong><br><br>
+            Thank you for signing up with Ario, the online tailoring platform that’s about to change the way you look at custom fashion!<br>
+            With Ario, you can design exactly what you want—no settling for mass-produced clothes that don't quite hit the mark. Whether it’s a unique Ankara piece, sleek native wear, or something bold for an event, we’ve got you covered. 👗✨<br><br>
+            And the best part? Ario doesn’t just work for you—it helps amazing tailors and designers get the shine they deserve. You get to discover talented artisans from Nigeria and beyond, giving you unique, custom fits without the hassle. 🙌💫<br><br>
+            Let’s create something amazing together! 😎👚`
     });
 
     await sendEmail({
         to: user.Email,
-        subject: "Password Reset 🔒",
+        subject: "Welcome ✨",
         html: emailContent
     });
 }
@@ -169,7 +173,7 @@ exports.createUser = async (req, res) => {
             State: req.body.State
         });
 
-        if (user.State.toLowerCase() === "lagos") {
+        if ((!user.State)||user.State.toLowerCase() === "lagos") {
             const jwtToken = jwt.sign(
                 { userId: user._id, email: user.Email }, 
                 jwtSecret, 
@@ -208,7 +212,7 @@ exports.getUser = async (req, res) =>{
                     Lastname: user.Lastname,
                     Email: user.Email,
                     PhoneNumber: user.PhoneNumber,
-                    PreferedSM: user.PreferedSM,
+                    PreferredSM: user.PreferredSM,
                     SMUsername: user.SMUsername,
                     MenMeasurement: user.MenMeasurement,
                     MostlyWears: user.MostlyWears
@@ -265,7 +269,7 @@ exports.updateUser = async (req, res) => {
             Email,
             Password,
             PhoneNumber,
-            PreferedSM,
+            PreferredSM,
             SMUsername,
             MenMeasurement,
             MostlyWears,
@@ -274,7 +278,7 @@ exports.updateUser = async (req, res) => {
         } = req.body;
 
         const validSMOptions = ['WhatsApp', 'Instagram', 'Snapchat', 'Telegram', 'Twitter'];
-        if (PreferedSM && !validSMOptions.includes(PreferedSM)) {
+        if (PreferredSM && !validSMOptions.includes(PreferredSM)) {
             return res.status(400).send({ message: "Invalid Preferred Social Media option" });
         }
         
@@ -295,7 +299,7 @@ exports.updateUser = async (req, res) => {
             ...(Lastname && { Lastname }),
             ...(Email && { Email }),
             ...(PhoneNumber && { PhoneNumber }),
-            ...(PreferedSM && { PreferedSM }),
+            ...(PreferredSM && { PreferredSM }),
             ...(SMUsername && { SMUsername }),
             ...(MenMeasurement && { MenMeasurement }),
             ...(MostlyWears && { MostlyWears }),
@@ -339,7 +343,7 @@ exports.updateUser = async (req, res) => {
                 Lastname: updatedUser.Lastname,
                 Email: updatedUser.Email,
                 PhoneNumber: updatedUser.PhoneNumber,
-                PreferedSM: updatedUser.PreferedSM,
+                PreferredSM: updatedUser.PreferredSM,
                 SMUsername: updatedUser.SMUsername,
                 MenMeasurement: updatedUser.MenMeasurement,
                 MostlyWears: updatedUser.MostlyWears
@@ -537,7 +541,7 @@ exports.loginUser = async (req, res) => {
                     Lastname: user.Lastname,
                     Email: user.Email,
                     PhoneNumber: user.PhoneNumber,
-                    PreferedSM: user.PreferedSM,
+                    PreferredSM: user.PreferredSM,
                     SMUsername: user.SMUsername,
                     MenMeasurement: user.MenMeasurement,
                     MostlyWears: user.MostlyWears
@@ -565,7 +569,7 @@ exports.loginUser = async (req, res) => {
                     Lastname: user.Lastname,
                     Email: user.Email,
                     PhoneNumber: user.PhoneNumber,
-                    PreferedSM: user.PreferedSM,
+                    PreferredSM: user.PreferredSM,
                     SMUsername: user.SMUsername,
                     MenMeasurement: user.MenMeasurement,
                     MostlyWears: user.MostlyWears
@@ -717,13 +721,13 @@ exports.addMostlyWear = async (req, res) => {
     }
 }
 
-exports.addPreferedSM = async (req, res) => {
+exports.addPreferredSM = async (req, res) => {
     try {
         const userId = req.user.userId;
-        const { PreferedSM, SMUsername } = req.body;
+        const { PreferredSM, SMUsername } = req.body;
 
         const validSMOptions = ['WhatsApp', 'Instagram', 'Snapchat', 'Telegram', 'Twitter'];
-        if (!validSMOptions.includes(PreferedSM)) {
+        if (!validSMOptions.includes(PreferredSM)) {
             return res.status(400).send({ message: "Invalid Preferred Social Media option" });
         }
 
@@ -733,7 +737,7 @@ exports.addPreferedSM = async (req, res) => {
             return res.status(404).send({ message: 'User not found' });
         }
 
-        user.PreferedSM = PreferedSM;
+        user.PreferredSM = PreferredSM;
         user.SMUsername = SMUsername;
         await user.save();
 
