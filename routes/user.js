@@ -23,7 +23,7 @@ router.post('/forgotPassword', controller.forgotPassword);
 router.get('/resetPassword/:token', controller.resetPassword);
 router.post('/resendVerificationLink', authenticateToken, controller.resendVerificationLink);
 router.post('/addMostlyWear', authenticateToken, controller.addMostlyWear);
-router.post('/addPreferedSM', authenticateToken, controller.addPreferedSM);
+router.post('/addPreferredSM', authenticateToken, controller.addPreferredSM);
 router.post('/addMenMeasurement', authenticateToken, controller.addMenMeasurement);
 router.post('/jwtrefreshtoken', controller.refreshJWTToken);
 
