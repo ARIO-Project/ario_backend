@@ -1,4 +1,4 @@
-//require('dotenv').config();
+require('dotenv').config();
 const http = require('http');
 const express = require("express");
 const app = express();
@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 //DATABASE CONFIGURATION
-mongoose.connect('mongodb+srv://samuelbenibeh2:6290lHfTnhQhWuhU@node-rest-shop.0oy9qpo.mongodb.net/?retryWrites=true&w=majority&tls=true', {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     tlsInsecure: true
