@@ -31,6 +31,11 @@ mongoose.connect(process.env.MONGODB_URI, {
     console.error('Failed to connect to MongoDB', err);
 });
 
+// ROOT ROUTE
+app.get('/', (req, res) => {
+    res.send('Welcome to the ARIO AMBASSADOR SERVER');
+});
+
 //ROUTE TO "USER ROUTE" FILE
 const UserRoute = require('./routes/user');
 app.use('/users', UserRoute);
