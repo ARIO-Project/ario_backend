@@ -137,7 +137,12 @@ exports.createUser = async (req, res) => {
             return res.status(400).send({ message: "Invalid email format" });
         }
 
-        let user = await User.findOne({ $or: [{ Email }, { PhoneNumber }] }).exec();
+        const searchConditions = [{ Email }];
+        if (PhoneNumber) {
+            searchConditions.push({ PhoneNumber });
+        }
+        let user = await User.findOne({ $or: searchConditions }).exec();
+        // let user = await User.findOne({ $or: [{ Email }, { PhoneNumber }] }).exec();
 
         if (user) {
             
@@ -520,7 +525,7 @@ exports.loginUser = async (req, res) => {
             const token = crypto.randomBytes(32).toString('hex');
             user.ResetToken = token;
             user.ResetTokenCreatedAt = Date.now();
-            await user.save();
+            // await user.save();
             const verificationLink = `http://localhost:3000/users/verifyemail/${token}`;
             await sendVerificationEmail(user, verificationLink);
             const jwtToken = jwt.sign(
