@@ -38,7 +38,16 @@ app.get('/', (req, res) => {
 
 //ROUTE TO "USER ROUTE" FILE
 const UserRoute = require('./routes/user');
+const StyleRoute = require('./routes/style');
+const OrderRoute = require('./routes/order');
+
 app.use('/users', UserRoute);
+
+//API version 1
+
+app.use('/api/v1', StyleRoute);
+app.use('/api/v1', OrderRoute);
+
 
 //SERVER RUNNING
 server.listen(port, () => {
