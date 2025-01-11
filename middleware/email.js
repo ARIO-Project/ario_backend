@@ -44,4 +44,40 @@ async function sendEmail({ to, subject, html }) {
     }
 }
 
-module.exports = sendEmail;
+
+const sendCustomOrderEmail = async (email, { orderId, styleImage, orderDetails }) => {
+    try {
+        
+
+        const mailOptions = {
+            from: '"ARIO" <your-email@example.com>', // Update with the correct email
+            to: email,
+            subject: `New Custom Order Request: Order ID ${orderId}`,
+            html: `
+                <h1>New Custom Order Request</h1>
+                <p>Order ID: ${orderId}</p>
+                <p><b>Fabric Type:</b> ${orderDetails.fabricType}</p>
+                <p><b>Preferences:</b> ${orderDetails.preferences}</p>
+                <p><b>Comments:</b> ${orderDetails.comments}</p>
+                <p>Style Image:</p>
+                <img src="${styleImage}" alt="Style Image" style="max-width: 100%; height: auto;" />
+                <p>Please respond by clicking the appropriate link below:</p>
+                <a href="${process.env.FRONTEND_URL}/tailors/response?orderId=${orderId}&response=yes">Accept</a> |
+                <a href="${process.env.FRONTEND_URL}/tailors/response?orderId=${orderId}&response=no">Decline</a>
+            `,
+        };
+
+        await transporter.sendMail(mailOptions);
+        console.log(`Email successfully sent to ${email}`);
+    } catch (error) {
+        console.error(`Failed to send email to ${email}:`, error);
+        throw new Error('Failed to send email');
+    }
+};
+
+
+module.exports = {
+    sendEmail,
+    sendCustomOrderEmail
+};
+

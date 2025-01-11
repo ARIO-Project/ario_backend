@@ -19,7 +19,10 @@ const orderSchema = new mongoose.Schema({
     }, // Track the order status
     createdAt: { type: Date, default: Date.now },
     modifiedAt: { type: Date },
-    comments: { type: String } // Allow users to add extra comments to their orders
-});
+    comments: { type: String }, // Allow users to add extra comments to their orders
+    tailorEmail: { type: String }, // Selected tailor email
+    price: { type: Number }, // Accepted price
+}, { timestamps: true });
+
 
 module.exports = mongoose.model('Order', orderSchema);

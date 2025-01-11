@@ -7,7 +7,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const fs = require('fs').promises;
 const path = require('path');
-const sendEmail = require('../middleware/email');
+const { sendEmail } = require('../middleware/email');
 const jwtSecret = process.env.JWT_SECRET;
 const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET;
 
