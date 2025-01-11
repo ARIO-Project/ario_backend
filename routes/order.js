@@ -23,4 +23,6 @@ router.get('/all-orders', authenticateToken, orderController.getAllOrders);
 // Get all orders sorted by date modified
 router.delete('/delete-order/:orderId', authenticateToken, orderController.deleteOrder);
 
+router.post('/tailorResponse', orderController.acceptTailorResponse);
+
 module.exports = router;
